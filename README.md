@@ -80,3 +80,33 @@ Key Differences:
         ALL and ANY operators handle NULL values differently:
             ALL does not return TRUE if any comparison is NULL.
             ANY returns TRUE if at least one comparison is TRUE, even if others are NULL.
+
+
+
+EXISTS :
+In SQL, the EXISTS operator is used in a WHERE clause to check for the existence of rows returned by a subquery. It returns TRUE if the subquery returns at least one row, otherwise FALSE. Here’s an explanation and example of how EXISTS is used:
+
+SELECT columns
+FROM table
+WHERE EXISTS (subquery);
+
+1. Using EXISTS to find employees in the HR department:
+   SELECT emp_id, emp_name
+FROM Employees e
+WHERE EXISTS (
+    SELECT 1
+    FROM Departments d
+    WHERE d.department_id = e.department_id
+    AND d.department_name = 'HR'
+);
+
+2. Using NOT EXISTS to find employees not in any department:
+   SELECT emp_id, emp_name
+FROM Employees e
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM Departments d
+    WHERE d.department_id = e.department_id
+);
+
+
